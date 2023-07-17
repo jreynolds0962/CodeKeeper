@@ -13,4 +13,4 @@ This is a program that generates cryptic and secure passwords for other applicat
 
 * Should I create multiple lists of characters for the random item to be selected?
 
-* How can I connect to SQL database and add username and password to table.
+* How can I connect to SQL database and add username and password to table?
