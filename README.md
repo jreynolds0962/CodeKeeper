@@ -1,18 +1,16 @@
-## Getting Started
+# CodeKeeper
+This is a program that generates cryptic and secure passwords for other applications.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Preparation:
 
-## Folder Structure
+### Quesitons:
 
-The workspace contains two folders by default, where:
+* How do I get a random item from a list of character?
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+* How do I add the random item to a new list?
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+* How do I convert new list into a string? 
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+* Should I create multiple lists of characters for the random item to be selected?
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+* How can I connect to SQL database and add username and password to table?
