@@ -5,6 +5,7 @@ import java.util.Random;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+// import Cped.java;
 
 
 public class Generator {
@@ -46,6 +47,12 @@ public class Generator {
     public static void main(String[] args) {
         Generator newGen = new Generator();
         ArrayList<String> generatedPW = newGen.genPassword("yes");
+
+        // String url = 
+
+
+
+
         System.out.println(generatedPW);
 
         String listString = String.join("", generatedPW);

@@ -1,5 +1,5 @@
-public class cped {
+public class Cped {
     public String url = "";
-    public String username = "";
-    public String password = "";
+    public String username = "gasfnguid";
+    public String password = "fasdfsd";
 }
