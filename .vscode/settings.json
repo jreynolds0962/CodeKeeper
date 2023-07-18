@@ -2,6 +2,6 @@
     "java.dependency.packagePresentation": "flat",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/Users/joshuareynolds/Downloads/sqljdbc_12.2/enu/mssql-jdbc-12.2.0.jre8.jar"
+        "Generator/lib/mssql-jdbc-12.2.0.jre8.jar"
     ]
 }
