@@ -8,9 +8,16 @@ import java.sql.SQLException;
 // import java.sql.Statement;
 import java.sql.PreparedStatement;
 // import java.sql.ResultSet;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class CodeGenerator {
 
+    // This class creates unique passwords and adds them to a SQL DB
+
+
+    // Method that creates password
     public ArrayList<String> genPassword(String special) {
         
         Random rand = new Random();
@@ -44,6 +51,7 @@ public class CodeGenerator {
     
     }
 
+    // Method that creates sql query to add password
     public static String insertSql(String site, String user, String pwd, String description) {
         String insert = "INSERT INTO dbo.unqpsw (website, username, password, description) VALUES ('" +
                         site + "','" + user + "','" + pwd + "','" + description + "');";
@@ -68,11 +76,16 @@ public class CodeGenerator {
 
         Cped cped = new Cped();
 
+        String website = "crazyurl.com";
+        String username = "MyDefaultUser";
+
         // SQL statement to add values
-        String insertStatement = insertSql("newsite.com", "newUser", stringPW);
+        String insertStatement = insertSql(website, username, stringPW);
         
         // ResultSet resultSet = null;
 
+
+        // Connect to SQL DB and add pwd to it
         try (Connection connection = DriverManager.getConnection(cped.url, cped.username, cped.password)) {
         PreparedStatement prepsInsertProduct = connection.prepareStatement(insertStatement);
         int rowsAffected = prepsInsertProduct.executeUpdate();
@@ -86,6 +99,32 @@ public class CodeGenerator {
         connection.close();
         } catch (SQLException e) {
         e.printStackTrace();
+        }
+
+
+        // Create new_pwd.txt file and write to it
+        try {
+            File myFile = new File("new_pwd.txt");
+            if (myFile.createNewFile()) {
+                System.out.println("File created: " + myFile.getName());
+
+                try {
+                    FileWriter myWriter = new FileWriter("new_pwd.txt");
+                    myWriter.write("Your new information for " + website + " is: \n");
+                    myWriter.write("username: " + username + "\n");
+                    myWriter.write("password: " + stringPW);
+                    myWriter.close();
+                    System.out.println("Succesfully wrote to file");
+                } catch (IOException e) {
+                    System.out.println("An error occured");
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("File already exists");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
 
 
