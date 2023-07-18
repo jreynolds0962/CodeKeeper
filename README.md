@@ -14,3 +14,10 @@ This is a program that generates cryptic and secure passwords for other applicat
 * Should I create multiple lists of characters for the random item to be selected?
 
 * How can I connect to SQL database and add username and password to table?
+
+### Steps:
+
+1. Create method that creates unique password string
+   - Have multiple ways of creating password (w/ special characters, w/o special characters)
+2. Establish SQL DB Connection
+3. Create Query that inserts website, username, and password into DB
