@@ -28,3 +28,7 @@ This is a program that generates cryptic and secure passwords for other applicat
    - first see if you can access table from DB (SELECT * FROM /...)
    - Try test insert of deafult values
    - Insert values with produced password
+4. Integrate with ADO
+   - Create yaml file that runs java program succesfully
+   - Incorporate parameters for user to input website and username
+   - publish artifact of details with user, site, and unique password.
