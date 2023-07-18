@@ -1,22 +1,39 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
-trigger:
-- main
-
-pool:
-  vmImage: ubuntu-latest
+trigger: none
+pool: TestPool
 
 steps:
-- task: Maven@3
+- task: JavaToolInstaller@0
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
+    versionSpec: '11'
     jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    jdkSourceOption: 'PreInstalled'
+
+- task: CopyFiles@2
+  displayName: 'Copy Java source files'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**/*.java'
+    TargetFolder: '$(Build.BinariesDirectory)'
+
+- task: CopyFiles@2
+  displayName: 'Copy JAR library'
+  inputs:
+    SourceFolder: './Generator/'
+    Contents: '*.jar'
+    TargetFolder: '$(Build.BinariesDirectory)/lib'
+
+- task: CmdLine@2
+  displayName: 'Compile Java code'
+  inputs:
+    script: 'javac -cp "$(Build.BinariesDirectory)/lib/*" -d $(Build.BinariesDirectory) $(Build.BinariesDirectory)/*.java'
+
+- task: CmdLine@2
+  displayName: 'Execute Java program'
+  inputs:
+    script: 'java -cp "$(Build.BinariesDirectory)/lib/*:$(Build.BinariesDirectory)" YourClassName'
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish artifact'
+  inputs:
+    targetPath: '$(Build.BinariesDirectory)/*.txt'
+    artifact: 'result-artifact'

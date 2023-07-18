@@ -31,4 +31,5 @@ This is a program that generates cryptic and secure passwords for other applicat
 4. Integrate with ADO
    - Create yaml file that runs java program succesfully
    - Incorporate parameters for user to input website and username
-   - publish artifact of details with user, site, and unique password.
+   - Create text file in Java app that includes user and pwd
+   - publish text file as artifact
