@@ -43,15 +43,28 @@ public class CodeGenerator {
     
     }
 
+    public String insertSql(String site, String user, String pwd, String description) {
+        String insert = "INSERT INTO dbo.unqpsw (website, username, password, description) VALUES (" + 
+                            site + "," + user + "," + pwd + "," + description + ");";
+        return insert;
+    }
+
+    public String insertSql(String site, String user, String pwd) {
+        String insert = "INSERT INTO dbo.unqpsw (website, username, password) VALUES (" + 
+                            site + "," + user + "," + pwd + ",);";
+        return insert;
+    }
+
     public static void main(String[] args) {
+
+        // Create and string new password
         CodeGenerator newGen = new CodeGenerator();
         ArrayList<String> generatedPW = newGen.genPassword("yes");
+        String listString = String.join("", generatedPW);
+        System.out.print("Your new password is: ");
+        System.out.println(listString);
 
         Cped cped = new Cped();
-
-        System.out.println(cped.url);
-        System.out.println(cped.username);
-        System.out.println(cped.password);
         
         ResultSet resultSet = null;
         try {
@@ -71,10 +84,5 @@ public class CodeGenerator {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println(generatedPW);
-
-        String listString = String.join("", generatedPW);
-        System.out.println(listString);
     }
 }
