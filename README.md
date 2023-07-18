@@ -19,5 +19,12 @@ This is a program that generates cryptic and secure passwords for other applicat
 
 1. Create method that creates unique password string
    - Have multiple ways of creating password (w/ special characters, w/o special characters)
+   - Create logic on when to use certain characters (capitals, lowercase, specials, numbers)
 2. Establish SQL DB Connection
+   - Create sql db
+   - Create username and password file to store DB credentials
+   - Connect to DB through Java through username and password.
 3. Create Query that inserts website, username, and password into DB
+   - first see if you can access table from DB (SELECT * FROM /...)
+   - Try test insert of deafult values
+   - Insert values with produced password
