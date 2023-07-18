@@ -37,7 +37,10 @@ java CodeGenerator
 
 6. A txt file will be added to the source directory in case you need to store this unique password somewhere local
 
-7. DB table should look similar to this: 
+7. DB table should look similar to this:
+![Screen Shot 2023-07-18 at 4 15 43 PM](https://github.com/jreynolds0962/CodeKeeper/assets/88413989/6f009ad4-6b83-4a34-a20a-39fc7b50d276)
+
+
 
 ## Preparation:
 
