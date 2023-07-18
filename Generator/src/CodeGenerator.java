@@ -2,8 +2,9 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Random;
-
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class CodeGenerator {
 
@@ -25,7 +26,7 @@ public class CodeGenerator {
                 String randomNumber = numbers.get(rand.nextInt(numbers.size()));
                 newPassword.add(randomNumber);
                 continue;
-            } else if (i % 7 == 0 && special == "yes") {
+            } else if (i % 7 == 0 && special.equals("yes")) {
                 String randomSpecial = specials.get(rand.nextInt(specials.size()));
                 newPassword.add(randomSpecial);
                 continue;
@@ -36,19 +37,27 @@ public class CodeGenerator {
 
         }
 
-        
-
         return newPassword;
     
     }
+
     public static void main(String[] args) {
         CodeGenerator newGen = new CodeGenerator();
         ArrayList<String> generatedPW = newGen.genPassword("yes");
 
-        // String url = 
+        Cped cped = new Cped();
 
-
-
+        System.out.println(cped.url);
+        System.out.println(cped.username);
+        System.out.println(cped.password);
+        
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection connection = DriverManager.getConnection(cped.url, cped.username, cped.password);
+            connection.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
 
         System.out.println(generatedPW);
 
