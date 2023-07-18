@@ -37,6 +37,8 @@ java CodeGenerator
 
 6. A txt file will be added to the source directory in case you need to store this unique password somewhere local
 
+7. DB table should look similar to this: 
+
 ## Preparation:
 
 ### Quesitons:
