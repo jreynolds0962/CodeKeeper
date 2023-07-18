@@ -18,7 +18,7 @@ Add the jar file to your referenced libraries
 
 3. Create a Cped.java file in the same package, and add (We assume you have a table created with "website", "username", and "password" as column headers):
 
-```yaml
+```java
 public class Cped {
     String url = "jdbc:sqlserver://{database_name}.database.windows.net:1433;database={table_name}";
     String username = "{server_user_name}";
