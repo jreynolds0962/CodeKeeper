@@ -1,6 +1,42 @@
 # CodeKeeper
 This is a program that generates cryptic and secure passwords for other applications.
 
+### Running the program:
+
+Once the repo is copied to your local machine you will need one of two jar files:
+- mssql-jdbc-12.2.0.jre8.jar
+
+or
+
+- mssql-jdbc-12.2.0.jre11.jar
+
+Add the jar file to your referenced libraries
+
+1. Go to the "CodeGenerator.java" file
+
+2. Input your "website name" and "username" in the required fields
+
+3. Create a Cped.java file in the same package, and add (We assume you have a table created with "website", "username", and "password" as column headers):
+
+```yaml
+public class Cped {
+    String url = "jdbc:sqlserver://{database_name}.database.windows.net:1433;database={table_name}";
+    String username = "{server_user_name}";
+    String password = "{server_password}";
+}
+```
+
+4. Run the program either using your IDE or command line
+
+```
+javac CodeGenerator.java
+java CodeGenerator
+```
+
+5. The program will add your credentials to your sql table.
+
+6. A txt file will be added to the source directory in case you need to store this unique password somewhere local
+
 ## Preparation:
 
 ### Quesitons:
@@ -33,3 +69,4 @@ This is a program that generates cryptic and secure passwords for other applicat
    - Incorporate parameters for user to input website and username
    - Create text file in Java app that includes user and pwd
    - publish text file as artifact
+

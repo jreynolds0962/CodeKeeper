@@ -75,9 +75,19 @@ public class CodeGenerator {
         System.out.println(stringPW);
 
         Cped cped = new Cped();
+        
 
-        String website = "crazyurl.com";
-        String username = "MyDefaultUser";
+        /* Type In new Username
+         * And Website name
+         * Both will be used in the SQL Query
+         * Make sure that the website and your username are correct
+         * Password will be stored in DB & Txt file
+         */
+        String website = "yumyum.com";
+        String username = "mrsaucey";
+
+
+
 
         // SQL statement to add values
         String insertStatement = insertSql(website, username, stringPW);
