@@ -5,6 +5,8 @@ import java.util.Random;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 
 public class CodeGenerator {
 
@@ -51,9 +53,20 @@ public class CodeGenerator {
         System.out.println(cped.username);
         System.out.println(cped.password);
         
+        ResultSet resultSet = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection connection = DriverManager.getConnection(cped.url, cped.username, cped.password);
+            Statement statement = connection.createStatement();
+
+            // select rows
+            String selectSql = "SELECT * FROM dbo.unqpsw";
+            resultSet = statement.executeQuery(selectSql);
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2));
+            }
+
             connection.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
