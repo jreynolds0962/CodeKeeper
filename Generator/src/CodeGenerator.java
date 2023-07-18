@@ -5,8 +5,9 @@ import java.util.Random;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+// import java.sql.Statement;
+import java.sql.PreparedStatement;
+// import java.sql.ResultSet;
 
 public class CodeGenerator {
 
@@ -43,46 +44,50 @@ public class CodeGenerator {
     
     }
 
-    public String insertSql(String site, String user, String pwd, String description) {
-        String insert = "INSERT INTO dbo.unqpsw (website, username, password, description) VALUES (" + 
-                            site + "," + user + "," + pwd + "," + description + ");";
+    public static String insertSql(String site, String user, String pwd, String description) {
+        String insert = "INSERT INTO dbo.unqpsw (website, username, password, description) VALUES ('" +
+                        site + "','" + user + "','" + pwd + "','" + description + "');";
         return insert;
     }
 
-    public String insertSql(String site, String user, String pwd) {
-        String insert = "INSERT INTO dbo.unqpsw (website, username, password) VALUES (" + 
-                            site + "," + user + "," + pwd + ",);";
+    public static String insertSql(String site, String user, String pwd) {
+        String insert = "INSERT INTO dbo.unqpsw (website, username, password) VALUES ('" +
+                        site + "','" + user + "','" + pwd + "');";
         return insert;
     }
+
 
     public static void main(String[] args) {
 
         // Create and string new password
         CodeGenerator newGen = new CodeGenerator();
         ArrayList<String> generatedPW = newGen.genPassword("yes");
-        String listString = String.join("", generatedPW);
+        String stringPW = String.join("", generatedPW);
         System.out.print("Your new password is: ");
-        System.out.println(listString);
+        System.out.println(stringPW);
 
         Cped cped = new Cped();
+
+        // SQL statement to add values
+        String insertStatement = insertSql("newsite.com", "newUser", stringPW);
         
-        ResultSet resultSet = null;
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection connection = DriverManager.getConnection(cped.url, cped.username, cped.password);
-            Statement statement = connection.createStatement();
+        // ResultSet resultSet = null;
 
-            // select rows
-            String selectSql = "SELECT * FROM dbo.unqpsw";
-            resultSet = statement.executeQuery(selectSql);
+        try (Connection connection = DriverManager.getConnection(cped.url, cped.username, cped.password)) {
+        PreparedStatement prepsInsertProduct = connection.prepareStatement(insertStatement);
+        int rowsAffected = prepsInsertProduct.executeUpdate();
 
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2));
+            if (rowsAffected > 0) {
+                System.out.println("Data inserted successfully");
+            } else {
+                System.out.println("Data insertion failed.");
             }
 
-            connection.close();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        connection.close();
+        } catch (SQLException e) {
+        e.printStackTrace();
         }
+
+
     }
 }
