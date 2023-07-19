@@ -4,36 +4,41 @@ pool: TestPool
 steps:
 - task: JavaToolInstaller@0
   inputs:
-    versionSpec: '11'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'PreInstalled'
+    versionSpec: '8'
+    jdkArchitecture: 'x64'
 
 - task: CopyFiles@2
-  displayName: 'Copy Java source files'
+  displayName: 'Copy JAR file'
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
-    Contents: '**/*.java'
-    TargetFolder: '$(Build.BinariesDirectory)'
-
-- task: CopyFiles@2
-  displayName: 'Copy JAR library'
-  inputs:
-    SourceFolder: './Generator/'
-    Contents: '*.jar'
+    SourceFolder: 'Generator/lib'
+    Contents: 'mssql-jdbc-12.2.0.jre8.jar'
     TargetFolder: '$(Build.BinariesDirectory)/lib'
 
-- task: CmdLine@2
-  displayName: 'Compile Java code'
+- task: CopyFiles@2
+  displayName: 'Copy source files'
   inputs:
-    script: 'javac -cp "$(Build.BinariesDirectory)/lib/*" -d $(Build.BinariesDirectory) $(Build.BinariesDirectory)/*.java'
+    SourceFolder: 'Generator/src'
+    Contents: '**/*.java'
+    TargetFolder: '$(Build.BinariesDirectory)/src'
+
+- task: Maven@3
+  displayName: 'Maven Install'
+  inputs:
+    mavenPomFile: 'Generator/pom.xml'
+    mavenOptions: '-DskipTests=true'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: false
+    goals: 'clean package'
 
 - task: CmdLine@2
   displayName: 'Execute Java program'
   inputs:
-    script: 'java -cp "$(Build.BinariesDirectory)/lib/*:$(Build.BinariesDirectory)" YourClassName'
+    script: 'java -cp "$(Build.BinariesDirectory)/lib/*:$(Build.BinariesDirectory)/target/*" CodeGenerator'
 
 - task: PublishPipelineArtifact@1
   displayName: 'Publish artifact'
   inputs:
-    targetPath: '$(Build.BinariesDirectory)/*.txt'
+    targetPath: '$(Build.BinariesDirectory)/target/*.txt'
     artifact: 'result-artifact'
