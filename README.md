@@ -12,7 +12,7 @@ or
 
 Add the jar file to your referenced libraries
 
-1. Go to the "CodeGenerator.java" file
+1. Go to the [CodeGenerator.java](./Generator/src/CodeGenerator.java) file
 
 2. Input your "website name" and "username" in the required fields
 
