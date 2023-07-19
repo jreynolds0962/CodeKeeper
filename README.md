@@ -1,6 +1,5 @@
 # CodeKeeper
 This is a program that generates cryptic and secure passwords for other applications.
-
 Main program [here](./Generator/src/CodeGenerator.java)
 
 ### Running the program:
